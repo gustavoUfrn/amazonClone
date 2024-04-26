@@ -2,7 +2,10 @@ import { Col, Row } from 'react-bootstrap'
 import { sampleProducts } from '../data'
 import { Link } from 'react-router-dom'
 import { Product } from '../types/Product'
-import { useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
+import axios from 'axios'
+import { getError } from '../utils'
+import { ApiError } from '../types/ApiError'
 
 type State = {
   products: Product[]
@@ -39,23 +42,38 @@ export default function HomePage() {
     React.Reducer<State, Action>
   >(reducer, initialState)
 
-  return (
-    <div>
-      <Row>
-        {sampleProducts.map((product) => (
-          <Col key={product.slug} sm={6} md={4} lg={3}>
-            <Link to={'product/' + product.slug}>
-              <img
-                src={product.image}
-                alt={product.name}
-                className="product-image"
-              />
-              <h2>{product.name}</h2>
-              <p>${product.price}</p>{' '}
-            </Link>
-          </Col>
-        ))}
-      </Row>
-    </div>
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQUEST' })
+      try {
+        const result = await axios.get('/api/products')
+        dispatch({ type: 'FETCH_SUCESS', payload: result.data })
+      } catch (err) {
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err as ApiError) })
+      }
+    }
+    fetchData()
+  }, [])
+
+  return loading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MessageBox variant="danger">{error}</MessageBox>
+  ) : (
+    <Row>
+      {sampleProducts.map((product) => (
+        <Col key={product.slug} sm={6} md={4} lg={3}>
+          <Link to={'product/' + product.slug}>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="product-image"
+            />
+            <h2>{product.name}</h2>
+            <p>${product.price}</p>{' '}
+          </Link>
+        </Col>
+      ))}
+    </Row>
   )
 }
