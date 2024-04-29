@@ -14,8 +14,11 @@ app.get('/api/products', (req: Request, res: Response) => {
   return res.json(sampleProducts)
 })
 
-const PORT = 4000
+app.get('/api/products/:slug', (req: Request, res: Response) => {
+  return res.json(sampleProducts.find((x) => x.slug === req.params.slug))
+})
 
+const PORT = 4000
 app.listen(PORT, () => {
   console.log(`Server is started at http://localhost:${PORT}`)
 })
