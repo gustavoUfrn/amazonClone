@@ -2,7 +2,7 @@
 
 Nesse repositório foi criado um site como a Amazon na linguagem Typescript, usando a stack MERN. Criando as skill essenciais para desenvolver e entregar um website como a Amazon.
 
-### Criando frontend com vite
+## Criando frontend com vite
 
 Primeiro passo é criar um aplicativo react que rode com TS. Para isso usaremos o vite.
 
@@ -88,4 +88,70 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+```
+
+## Criando backend
+
+Para criar a api backend usando TS no node precisamos primeiro criar a pasta do backend. Em seguida configurar Typescript e Eslinting na pasta.
+
+```
+// -y Significa dizer sim para todas as perguntas que o terminar irá fazer
+// -D Significa que a biblioteca ficará salva como dependencia de desenvolvimento (--save-dev)
+npm init -y
+
+npm i typescript ts-node-dev -D
+
+npm i eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -D
+```
+
+Lembre-se de criar e configurar os arquivos tsconfig.json e .eslintrc.js. As configurações usadas podem ser vista na pasta root do projeto.
+
+> https://github.com/gustavoUfrn/amazonClone/tree/main/backend
+
+### Express
+
+Para esse projeto após criar o backend precisamos criar o servidor web. Para isso usaremos express.
+
+Express é a biblioteca que iramos usar para lidar com rotas, serviços http, middlewares e muito mais.
+
+```
+npm i express
+
+npm i @types/express -D
+```
+
+Para criar um servidor web simples com express basta rodar o código abaixo em um arquivo server.ts
+
+```
+import express, { Request, Response } from 'express'
+
+const app = express();
+
+app.get('/', (req: Request, res: Response) => {
+  res.json({ message: 'hello world with Typescript' })
+})
+
+app.listen(3333, () => 'server running on port 3333')
+```
+
+> Desta forma, você também foje da maldição do programador. Criando seu primeiro hello world na linguagem TS.
+
+### Recompilando o código
+
+Ao desenvolver a aplicação não queremos rodar três códigos para checar a aplicação funcionando, dessa forma o código abaixo auxilia na compilação do código e atualização, fazendo com que seja possivel dar reload/refresh no código após alguma alteração sem ter muito trabalho.
+
+```
+// Na pasta package.json adicione:
+"scripts": {
+    "build", "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only --files src/index.ts"
+  },
+```
+
+### Buscando data do backend pro frontend
+
+Axios é uma biblioteca utilizada para mandar requisições ajax, que será usada para transferencia de dados entre o back e o front.
+
+```
+npm i axios
 ```
