@@ -4,7 +4,9 @@ Nesse repositório foi criado um site como a Amazon na linguagem Typescript, usa
 
 ## Criando frontend com vite
 
-Primeiro passo é criar um aplicativo react que rode com TS. Para isso usaremos o vite.
+Vite é um blundler rápido e moderno que se torna escolha durante o desenvolvimento porque ele torna o desenvolvimento mais àgil, rápido e moderno ajudando a criar aplicativos com alta qualidade e de forma eficiente.
+
+Primeiro passo é criar um aplicativo vite usando react-ts com node é usarmos a biblioteca npm para instalar criar e configurar o app.
 
 ```
 //Rodando o código abaixo criamos uma aplicação react
@@ -19,7 +21,8 @@ npm run dev
 
 ### Eslint
 
-Configure ESlint para padronizar o código para que sua equipe trabalhe com um código limpo.
+Eslint será a forma usada para que o código se mantenha limpo, sem erros e bugs e seja possivel trabalhar em equipe, padronizando o código no processo de desenvolvimento.
+
 A configuração usada por esse projeto pode ser vista em:
 
 > https://github.com/gustavoUfrn/amazonClone/blob/main/frontend/.eslintrc.cjs
@@ -148,9 +151,11 @@ Ao desenvolver a aplicação não queremos rodar três códigos para checar a ap
   },
 ```
 
-### Buscando data do backend pro frontend
+### Buscando dados do backend
 
-Axios é uma biblioteca utilizada para mandar requisições ajax, que será usada para transferencia de dados entre o back e o front.
+Axios é um biblioteca capaz de fazer requisições http no navegador e no servidor, sendo capaz de manipular requisições assíncronas e manipular as respostas retornadas.
+
+A biblioteca axios será usada para buscar os dados do backend para o frontend com ajuda de reducer.
 
 ```
 npm i axios
